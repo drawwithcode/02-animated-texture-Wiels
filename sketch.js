@@ -19,7 +19,7 @@ function setup() {
 
   createCanvas(windowWidth, windowHeight);
   angleMode(DEGREES)
-  background(0)
+  background(random(1,255),random(1,255),random(1,255))
 
   thing1 = new Thing(10);
   thing2 = new Thing(20);
@@ -34,6 +34,7 @@ function setup() {
   random_h = random(50,100);
   jump = random(0.001,0.005)
   x_thing = random(2,10)
+  y_thing = random(1,10)
   mouse_clicked = 0
   start_w = windowWidth/2
   start_h = windowHeight/2
@@ -70,14 +71,16 @@ class Thing {
 
     for (let ii=0;ii<360;ii+=this.space/10){
       let xoff=map(cos(ii),-1,1,0,x_thing)
-      let yoff=map(sin(ii),-1,1,0,4)
+      let yoff=map(sin(ii),-1,1,0,y_thing)
       let n = noise(xoff+this.start,yoff+this.start)
       let height = map(n,0,1,this.min_height,this.max_height)
       rotate(this.space/10)
-      fill((map(n*this.factor_r,0,100,0,this.red,random)+this.red_off%255),(map(n*this.factor_g,0,100,0,this.green,random)+this.green_off)%255,(map(n*this.factor_b,0,100,0,this.blue)+this.blue_off)%255,this.transp)
-      if(this.decider<0.5){
+      fill((map(n*this.factor_r,0,100,0,this.red,random)+this.red_off%150),(map(n*this.factor_g,0,100,0,this.green,random)+this.green_off)%255,(map(n*this.factor_b,0,100,0,this.blue)+this.blue_off)%255,this.transp)
+
+
+      if(this.decider<0.7){
       rect(map(n,0,1,this.min_x,this.max_x),4,height,this.width)}
-      if (this.decider>=0.5){
+      if (this.decider>=0.7){
       circle(map(n,0,1,this.min_x,this.max_x),random(),height/2)}
 
     }
@@ -89,7 +92,8 @@ class Thing {
 
 function draw() {
   let draw_noise = noise(random_w,random_h)
-  //background(30)
+  //background(random(1,255),random(1,255),random(1,255))
+  //background(0)
   noStroke()
 
   if((frameCount%55)==30){
