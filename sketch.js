@@ -49,17 +49,18 @@ class Thing {
     this.start = random(1,1000)
     this.min_x = random(0,300)
     this.max_x = this.min_x+random(50,300)
-    this.red = random(100,700)
+    this.red = random(1,700)
     this.red_off = random(0,255)
-    this.green = random(100,700)
+    this.green = random(1,700)
     this.green_off = random(0,255)
-    this.blue = random(100,700)
-    this.blue_off = random(0,255)
+    this.blue = random(1,700)
+    this.blue_off = random(1,255)
     this.start_off = random(0.005,0.015)
     this.factor_r = random(1,500)
     this.factor_b = random(1,500)
     this.factor_g = random(1,500)
     this.decider = random()
+    this.transp = random(1,255)
 
   }
 
@@ -73,7 +74,7 @@ class Thing {
       let n = noise(xoff+this.start,yoff+this.start)
       let height = map(n,0,1,this.min_height,this.max_height)
       rotate(this.space/10)
-      fill((map(n*this.factor_r,0,100,0,this.red,random)+this.red_off%255),(map(n*this.factor_g,0,100,0,this.green,random)+this.green_off)%255,(map(n*this.factor_b,0,100,0,this.blue)+this.blue_off)%255,random)
+      fill((map(n*this.factor_r,0,100,0,this.red,random)+this.red_off%255),(map(n*this.factor_g,0,100,0,this.green,random)+this.green_off)%255,(map(n*this.factor_b,0,100,0,this.blue)+this.blue_off)%255,this.transp)
       if(this.decider<0.5){
       rect(map(n,0,1,this.min_x,this.max_x),4,height,this.width)}
       if (this.decider>=0.5){
@@ -91,7 +92,7 @@ function draw() {
   //background(30)
   noStroke()
 
-  if((frameCount%70)==55){
+  if((frameCount%55)==30){
     thing1 = new Thing(10);
     thing2 = new Thing(20);
     thing3 = new Thing(30);
